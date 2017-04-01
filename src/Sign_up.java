@@ -56,7 +56,7 @@ public class Sign_up extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<String>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -77,7 +77,7 @@ public class Sign_up extends javax.swing.JFrame {
 
         jLabel7.setText("Password");
 
-        jLabel8.setText("DOB  [Format: DD/MMM/YYYY]");
+        jLabel8.setText("DOB");
 
         jLabel9.setText("Area");
 
@@ -137,7 +137,7 @@ public class Sign_up extends javax.swing.JFrame {
 
         jLabel11.setText("Address");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "North Delhi", "South Delhi", "East Delhi", "West Delhi" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "North Delhi", "South Delhi", "East Delhi", "West Delhi" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -259,7 +259,7 @@ System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-NewJFrame frame=new NewJFrame();
+First_Page frame=new First_Page();
 frame.setVisible(true);
 Sign_up SignUp=new Sign_up();
 Sign_up.this.dispose();// TODO add your handling code here:
@@ -271,14 +271,14 @@ Sign_up.this.dispose();// TODO add your handling code here:
         try {
             String driverName = "oracle.jdbc.driver.OracleDriver";
             Class.forName(driverName);
-            String serverName = "Johnny";
+            String serverName = "myGlobe";
             String serverPort = "1521";
             String sid = "XE";
             String url = "jdbc:oracle:thin:@" + serverName + ":" + serverPort + ":" + sid;
             String username = "DBMS";
             String password = "DBMS";
             conn = DriverManager.getConnection(url, username, password);
-            System.out.println("Successfully Connected to the database");
+
             
 
         } catch (ClassNotFoundException e) {
@@ -308,7 +308,7 @@ Sign_up.this.dispose();// TODO add your handling code here:
             rs = st.executeQuery("insert into accounts values('"+id+"','"+pass1+"','USER')");
             rs = st.executeQuery("insert into userinfo values('"+id+"','"+FName+"','"+LName+"',"+ph+",'"+email+"','"+addr+"','"+date+"',"+area+")");
             jOptionPane1.showMessageDialog(null,"Congratulations!"+"\nSuccessfully Signed Up! Please Login to continue");
-            NewJFrame frame=new NewJFrame();
+            First_Page frame=new First_Page();
             frame.setVisible(true);
             Sign_up.this.dispose();
         }

@@ -92,7 +92,7 @@ public class Edit_Info extends javax.swing.JFrame {
             }
         });
 
-        jPasswordField1.setText("54545651");
+        jPasswordField1.setText("65156161");
 
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,7 +109,7 @@ public class Edit_Info extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Cancel");
+        jButton2.setText("Back");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -229,21 +229,21 @@ public class Edit_Info extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-System.exit(0);// TODO add your handling code here:
+Edit_Info.this.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-Edit_Info.this.dispose();
+        
+        Edit_Info.this.dispose();
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-Connection conn = null;
+        Connection conn = null;
         try {
             String driverName = "oracle.jdbc.driver.OracleDriver";
             Class.forName(driverName);
-            String serverName = "Johnny";
+            String serverName = "myGlobe";
             String serverPort = "1521";
             String sid = "XE";
             String url = "jdbc:oracle:thin:@" + serverName + ":" + serverPort + ":" + sid;
@@ -269,6 +269,7 @@ Connection conn = null;
                     {
                         String newPass=jOptionPane1.showInputDialog(null,"Enter new password");
                         rs1=st1.executeQuery("update accounts set password='"+newPass+"' where id='"+user_id+"'");
+                        rs1.close();
                         jOptionPane1.showMessageDialog(null,"Password Changed successfully");
                         
                         
@@ -296,13 +297,13 @@ Connection conn = null;
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-Connection conn = null;
+        Connection conn = null;
 jTextField3.setEditable(false);
 jPasswordField1.setEditable(false);
         try {
             String driverName = "oracle.jdbc.driver.OracleDriver";
             Class.forName(driverName);
-            String serverName = "Johnny";
+            String serverName = "myGlobe";
             String serverPort = "1521";
             String sid = "XE";
             String url = "jdbc:oracle:thin:@" + serverName + ":" + serverPort + ":" + sid;
@@ -314,7 +315,6 @@ jPasswordField1.setEditable(false);
             System.out.println("Could not find the database driver" + e.getMessage());
         } catch (SQLException e) {
             System.out.println("Could not connect to the database" + e.getMessage());
-            jLabel4.setText("Invalid Credentials; Logon Denied!");
         }
         try {
                 
@@ -322,7 +322,7 @@ jPasswordField1.setEditable(false);
                 ResultSet rs=null;
                 String user_name=jTextField3.getText();
                
-                rs = st.executeQuery("select Fname, Lname, phonenumber, emailid, address,DOB, Areacode from USERINFO where id='"+user_name+"'");
+                rs = st.executeQuery("select Fname, Lname, phonenumber, emailid, address, TO_CHAR(DOB,'DD-Mon-YYYY'), Areacode from USERINFO where id='"+user_name+"'");
                 while (rs.next()){
                     jTextField1.setText(rs.getString(1).toUpperCase());
                     jTextField2.setText(rs.getString(2).toUpperCase());
@@ -330,7 +330,6 @@ jPasswordField1.setEditable(false);
                     jTextField5.setText(rs.getString(4));
                     jTextField6.setText(rs.getString(5));
                     jTextField7.setText(rs.getString(6));
-                    System.out.println(rs.getString(6));
                     String AreaCode=rs.getString(7);
                     if(AreaCode.equals("1"))
                     {
@@ -368,7 +367,7 @@ jPasswordField1.setEditable(false);
         try {
             String driverName = "oracle.jdbc.driver.OracleDriver";
             Class.forName(driverName);
-            String serverName = "Johnny";
+            String serverName = "myGlobe";
             String serverPort = "1521";
             String sid = "XE";
             String url = "jdbc:oracle:thin:@" + serverName + ":" + serverPort + ":" + sid;
@@ -381,7 +380,6 @@ jPasswordField1.setEditable(false);
             System.out.println("Could not find the database driver" + e.getMessage());
         } catch (SQLException e) {
             System.out.println("Could not connect to the database" + e.getMessage());
-            jLabel4.setText("Invalid Credentials; Logon Denied!");
         }
         try {
                 Statement st = conn.createStatement();
@@ -393,7 +391,9 @@ jPasswordField1.setEditable(false);
                 String Email=new String(jTextField5.getText());
                 String Address=new String(jTextField6.getText());
                 String DOB=new String(jTextField7.getText());
-                rs = st.executeQuery("update userinfo set fname='"+Fname+"',lname='"+Lname+"', phonenumber='"+Ph_No+"', Emailid='"+Email+"', address='"+Address+"', DOB='"+DOB+"' where id='"+user_id+"'");
+                int index=jComboBox1.getSelectedIndex();
+                index++;
+                rs = st.executeQuery("update userinfo set fname='"+Fname+"',lname='"+Lname+"', phonenumber='"+Ph_No+"', Emailid='"+Email+"', address='"+Address+"', DOB='"+DOB+"', Areacode='"+index+"' where id='"+user_id+"'");
                 jOptionPane1.showMessageDialog(null,"Record updated");
                 
                 
